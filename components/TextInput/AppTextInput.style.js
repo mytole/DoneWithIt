@@ -2,18 +2,22 @@ import { Platform, StyleSheet } from "react-native";
 import colors from "../../config/colors";
 
 const styles = StyleSheet.create({
-  btn: {
-    width: "100%",
-    padding: 13,
-    alignItems: "center",
-    justifyContent: "center",
+  container: {
+    backgroundColor: colors.light,
     borderRadius: 25,
+    flexDirection: "row",
+    width: "100%",
+    padding: 15,
+    marginVertical: 10,
   },
-  btn_text: {
+  textInput: {
+    flex: 1,
+    fontSize: 18,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: colors.white,
+    color: colors.dark,
+  },
+  icon: {
+    marginRight: 10,
   },
 });
 
