@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -25,22 +25,23 @@ import AppPicker from "./components/Picker/AppPicker";
 import LoginScreen from "./screens/Login/LoginScreen";
 import RegisterScreen from "./screens/Register/RegisterScreen";
 import ListingEditScreen from "./screens/Listings/ListingEditScreen";
-
-const categories = [
-  { label: "Furniture", value: 1 },
-  { label: "Clothing", value: 2 },
-  { label: "Cameras", value: 3 },
-];
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
+import ImageInput from "./components/forms/ImageInput/ImageInput";
 
 export default function App() {
-  const handleOnPress = () => console.log("btn clicked");
-  const handleOnPress2 = () =>
-    Alert.prompt("My title", "My message", (text) => console.log(text));
-  const { landscape } = useDeviceOrientation();
-
-  const [switchcaseyo, setSwitchCaseYo] = useState(false);
-
-  const [category, setCategory] = useState();
+  const requestPermission = async () => {
+    const result = await Permissions.askAsync(
+      Permissions.CAMERA,
+      Permissions.LOCATION
+    );
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!status === "granted") alert("Sorry you need permission bro");
+    else alert("thanks");
+  };
+  useEffect(() => {
+    requestPermission();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -72,7 +73,8 @@ export default function App() {
       /> */}
       {/* <LoginScreen /> */}
       {/* <RegisterScreen /> */}
-      <ListingEditScreen />
+      {/* <ListingEditScreen /> */}
+      <ImageInput />
     </SafeAreaView>
   );
 }
